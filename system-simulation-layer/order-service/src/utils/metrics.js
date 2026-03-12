@@ -15,7 +15,7 @@ export const httpRequestDuration = new client.Histogram({
 export const httpErrorCounter = new client.Counter({
   name: "http_errors_total",
   help: "Total HTTP errors",
-  labelNames: ["route", "status_code"],
+  labelNames: ["method", "route", "status_code"],
   registers: [register]
 });
 

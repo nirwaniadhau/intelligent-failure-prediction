@@ -1,37 +1,37 @@
 import express from "express";
-import { pool, initDB } from "../db/connections.js"
+// import { pool, initDB } from "../db/connections.js"
 import logger from "./utils/logger.js";
 import requestContext from "./middleware/requestContext.js";
 import requestLogger from "./middleware/requestLogger.js";
 import { register } from "./utils/metrics.js";
+import simulateRoutes from "./routes/simulate.js";  
 
 const app=express();
 app.use(express.json());
 
 app.use(requestContext);
 app.use(requestLogger);
+app.use("/simulate", simulateRoutes);
 
 app.post("/create-order", async (req, res) => {
   try {
-    const { userId, item } = req.body;
+    const { user_id, item, quantity } = req.body;
 
-    const result = await pool.query(
-      "INSERT INTO orders (user_id, item) VALUES ($1, $2) RETURNING *",
-      [userId, item]
-    );
+    // Simulated order creation (no DB)
+    const order = {
+      id: Date.now(),
+      user_id,
+      item,
+      quantity,
+      status: "created"
+    };
 
-    
-
-    res.status(201).json({
-      message: "Order created",
-      order: result.rows[0],
-    });
-  } catch (err) {
-    console.error("Order creation error:", err);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(201).json(order);
+  } catch (error) {
+    console.error("Order creation error:", error);
+    res.status(500).json({ error: "Order creation failed" });
   }
 });
-
 app.get("/metrics", async (req, res) => {
   res.set("Content-Type", register.contentType);
   res.end(await register.metrics());
@@ -40,7 +40,7 @@ app.get("/metrics", async (req, res) => {
 const PORT = 5000;
 
 app.listen(PORT, async () => {
-  await initDB();
+  // await initDB();
   console.log(`Order Service running on port ${PORT}`);
    logger.info({
     event: "service_started",

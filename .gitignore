@@ -12,7 +12,7 @@ logs/
 
 # Python virtual environments
 venv/
-load-testing/venv/
+**/venv/
 
 # Python cache
 __pycache__/
@@ -20,6 +20,7 @@ __pycache__/
 
 # VS Code
 .vscode/
+
 
 # OS files
 .DS_Store
