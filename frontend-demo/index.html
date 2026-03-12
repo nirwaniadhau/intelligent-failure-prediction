@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FailSight Food Ordering Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Zomato - Large scale system software food ordering platform</h1>
+  <p>Distributed System Simulation for Failure Prediction</p>
+</header>
+
+<div class="container">
+
+  <!-- Authentication Panel -->
+  <div class="card">
+    <h2>🔐 Authentication</h2>
+
+    <input type="text" id="userId" placeholder="Enter User ID">
+
+    <button onclick="validateUser()">Validate User</button>
+
+    <p id="authStatus"></p>
+  </div>
+
+
+  <!-- Order Panel -->
+  <div class="card">
+    <h2>🧾 Order Food</h2>
+
+    <input type="text" id="item" placeholder="Food Item (Pizza/Burger)">
+    <input type="number" id="quantity" placeholder="Quantity">
+
+    <button onclick="createOrder()">Place Order</button>
+
+    <p id="orderStatus"></p>
+  </div>
+
+
+  <!-- Failure Simulation -->
+  <div class="card">
+    <h2>⚠️ Simulate System Failures</h2>
+
+    <button onclick="simulateFailure('cpu-spike')">CPU Spike</button>
+
+    <button onclick="simulateFailure('memory-leak')">Memory Leak</button>
+
+    <button onclick="simulateFailure('error-storm')">Error Storm</button>
+
+    <button onclick="simulateFailure('latency')">High Latency</button>
+
+    <p id="failureStatus"></p>
+  </div>
+
+
+  <!-- System Status -->
+  <div class="card">
+    <h2>🖥 System Status</h2>
+
+    <p>Auth Service: <span id="authService">Checking...</span></p>
+
+    <p>Order Service: <span id="orderService">Checking...</span></p>
+
+    <p>Prometheus: <span id="prometheusService">Checking...</span></p>
+
+    <button onclick="checkSystemStatus()">Refresh Status</button>
+
+  </div>
+
+</div>
+
+<footer>
+  <p>FailSight Distributed Systems Observability Demo</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
